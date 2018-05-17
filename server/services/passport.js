@@ -11,8 +11,12 @@ passport.use(
         callbackURL: '/auth/google/callback',
         // proxy: true
       },
-      accessToken => {
-          console.log(accessToken);
+    //  accessToken is the key to get access to the same google account
+    //refreshToken refresh accessToken, accessToken expires after certain amount of time
+      (accessToken, refreshToken, profile, done) => {
+        console.log("accessToken:", accessToken);
+        console.log("refreshToken:", refreshToken);
+        console.log("profile:", profile);
       }
     )
   );
