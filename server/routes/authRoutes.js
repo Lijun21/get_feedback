@@ -1,7 +1,7 @@
 const passport = require('passport');
 
+ //authenticate requests.
 module.exports = (app) => {
-    //authenticate requests.
     //access /auth/google, and redirect it to passport google strategy reqest
     app.get('/auth/google', 
         passport.authenticate('google', {
