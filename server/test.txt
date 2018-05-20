@@ -1,9 +1,0 @@
-config
-index.js
-models
-node_modules
-package-lock.json
-package.json
-routes
-services
-test.txt

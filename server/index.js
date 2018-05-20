@@ -23,5 +23,6 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app);
 
+//Heroku would set up process.env.PORT automatically for us
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
