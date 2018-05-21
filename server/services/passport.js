@@ -29,21 +29,16 @@ passport.use(
         // hey google strategy, if our request run through any proxy, that's fine, just trust it and calculate the call back URL correctly, https not http
         proxy: true
       },
-    //  accessToken is the key to get access to the same google account
-    //refreshToken refresh accessToken, accessToken expires after certain amount of time
-      (accessToken, refreshToken, profile, done) => {
-        User.findOne({googleId: profile.id}).then(existingUser => {
-          if (existingUser) {
-            //done tell passport you are done with checking and return what you get
-            done(null, existingUser);//the user exits, return, error and user record 
-          }else {
-            // create a new mogoose model instance, promises
-            new User({ googleId: profile.id })
-            .save()
-            .then(user => done(null, user));
-          }
-        })
+    //accessToken is the key to get access to the same google account, refreshToken refresh accessToken, accessToken expires after certain amount of time
+      async (accessToken, refreshToken, profile, done) => {
+        const existingUser = await User.findOne({googleId: profile.id});
+        if (existingUser){
+          //done tell passport you are done with checking and return what you get
+          return done(null, existingUser);
+        }
+         // create a new mogoose model instance, use promises.save()
+          const user = await new User({ googleId: profile.id }).save();
+          done(null, user);
       }
     )
   );
-  
