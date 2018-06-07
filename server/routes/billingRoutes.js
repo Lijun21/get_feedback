@@ -5,7 +5,6 @@ var requireLogin = require('../middlewares/requireLogin');
 //stripe lib create a promise every time we create a charge, so use async/await
 module.exports = app => {
     app.post('/api/stripe', requireLogin, async (req, res) => {
-        stripe.setPublishableKey('pk_test_WVNWkintSeScNUDsSAT1AKQm');
         const charge = await stripe.charges.create({
             amount: 999,
             currency: 'usd',
