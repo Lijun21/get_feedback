@@ -5,6 +5,7 @@ const passport = require('passport');
 var bodyParser = require('body-parser');
 const keys = require('./config/keys');
 require('./models/User');
+require('./models/Survey');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI);
@@ -27,6 +28,7 @@ app.use(passport.session());
 //the require will retrun a js function and immediatly get called with app as parameter
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 //** all the routes will be served by the order of operation, form top down, authRoutes then authRoutes then client/build then you get index.html file
 if (process.env.NODE_ENV === 'production'){
