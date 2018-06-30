@@ -3,18 +3,13 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import SurveyField from './SurveyField';
+import validateEmail from '../../utils/validateEmails';
 
-
-const FIELDS = [
-    { label: 'Survey Title', name: 'title' },
-    { label: 'Survey Line', name: 'subject' },
-    { label: 'Email Body', name: 'body' },
-    { label: 'Recipient List', name: 'emails' }
-]
+import formFields from './formFields';
 
 class SurveyForm extends Component {
     renderFields(){
-        return _.map(FIELDS, ({label, name}) => {
+        return _.map(formFields, ({label, name}) => {
             return (
                 <Field 
                 key={name}
@@ -26,11 +21,11 @@ class SurveyForm extends Component {
             )
         })
     }
-
+//onSubmit={this.props.handleSubmit(values => console.log(values))}
     render(){
         return (
             <div>
-                <form onSubmit={this.props.handleSubmit(values => console.log(values))}
+                <form onSubmit={this.props.handleSubmit( () => this.props.onSurveySubmit() )}
                 >
                     {this.renderFields()}
                     <Link to='/surveys' className="red btn-flat white-text">Cancel</Link>
@@ -46,9 +41,12 @@ class SurveyForm extends Component {
 
 function validate(values){
     const errors = {};
+    //if no emails provided, give it empty string, when first build up the app, form forced to build up
+    //validation automatically run one time with values = "";
+    errors.emails = validateEmail(values.emails || "");
     // values.name return the key
     // values[name] reutrn the value on the fly
-    _.forEach(FIELDS, ({ name }) => {
+    _.forEach(formFields, ({ name }) => {
         if (!values[name]){
             errors[name] = `*You must provide a ${name}`;
         }
@@ -58,5 +56,6 @@ function validate(values){
 
 export default reduxForm({
     validate,
-    form: 'surveyForm'
+    form: 'surveyForm',
+    destroyOnUnmount: false
 })(SurveyForm);
