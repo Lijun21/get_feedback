@@ -43,7 +43,7 @@ function validate(values){
     const errors = {};
     //if no emails provided, give it empty string, when first build up the app, form forced to build up
     //validation automatically run one time with values = "";
-    errors.emails = validateEmail(values.emails || "");
+    errors.recipients = validateEmail(values.recipients || "");
     // values.name return the key
     // values[name] reutrn the value on the fly
     _.forEach(formFields, ({ name }) => {

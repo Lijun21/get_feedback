@@ -2,6 +2,8 @@ var keys = require('../config/keys');
 var stripe = require("stripe")(keys.stripeSecretKey);
 var requireLogin = require('../middlewares/requireLogin');
 
+
+//why we don't use the token passed by axio.post????
 //stripe lib create a promise every time we create a charge, so use async/await
 module.exports = app => {
     app.post('/api/stripe', requireLogin, async (req, res) => {

@@ -18,7 +18,7 @@ module.exports = app => {
     });
 
     app.post('/api/surveys', requireLogin, requireCredit, async (req, res) => {
-        const {title, subject, body, recipients } = req.body;
+        const { title, subject, body, recipients } = req.body;
 
         //create a new instance of our survey model, we have not save it yet
         const survey = new Survey({
