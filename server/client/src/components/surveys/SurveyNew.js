@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form';
 class SurveyNew extends Component {
     // constructor(props) {
     //     super(props);
-    //     this.state = { new: true };
+    //     this.state = { showFormReview: false };
     // }
     //initalize the state same as above
     state = { showFormReview: false };
